@@ -1,0 +1,14 @@
+{
+  "name": "neon-strike",
+  "version": "0.1.0",
+  "description": "Бесплатный 3D-шутер в стиле CS2 (Three.js + Electron)",
+  "main": "electron-main.js",
+  "scripts": { "start": "electron .", "dist": "electron-builder --win portable" },
+  "devDependencies": { "electron": "^31.0.0", "electron-builder": "^24.13.3" },
+  "build": {
+    "appId": "free.neonstrike.game",
+    "productName": "Neon Strike",
+    "files": ["*.html", "*.js", "package.json"],
+    "win": { "target": "portable" }
+  }
+}
