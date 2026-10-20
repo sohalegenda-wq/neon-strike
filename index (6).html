@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><title>Neon Strike</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<script type="importmap">{"imports":{
+"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+"three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<style>
+:root{--bg:#07080c;--panel:#10131b;--line:#232a3a;--neon:#19f0c8;--hot:#ff3d6e;--tx:#dfe6f3}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--tx);font:15px/1.4 "Segoe UI",system-ui,sans-serif;overflow:hidden}
+canvas{display:block;position:fixed;inset:0}
+.screen{position:fixed;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column;gap:14px;background:radial-gradient(ellipse at 30% 20%,#12202a,var(--bg) 70%);z-index:5}
+.screen.on{display:flex}
+h1{font-size:64px;margin:0 0 10px;letter-spacing:.06em;color:var(--neon);text-shadow:0 0 24px #19f0c866}
+button,.btn{background:var(--panel);color:var(--tx);border:1px solid var(--line);padding:12px 36px;min-width:260px;font-size:16px;cursor:pointer;transition:.15s}
+button:hover{border-color:var(--neon);box-shadow:0 0 14px #19f0c855;color:var(--neon)}
+button.hot{border-color:var(--hot)}button.hot:hover{box-shadow:0 0 14px #ff3d6e66;color:var(--hot)}
+.card{background:var(--panel);border:1px solid var(--line);padding:22px;min-width:340px;max-width:560px}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+.skin{width:96px;height:64px;border:2px solid var(--line);cursor:pointer;background-size:cover}.skin.sel{border-color:var(--neon)}
+input,textarea,select{background:#0a0c12;color:var(--tx);border:1px solid var(--line);padding:8px;width:100%;font:inherit}
+#hud{position:fixed;inset:0;pointer-events:none;display:none;z-index:3}
+#hud.on{display:block}
+#cross{position:absolute;left:50%;top:50%;width:6px;height:6px;margin:-3px;border:1px solid var(--neon);border-radius:50%}
+#hit{position:absolute;left:50%;top:50%;width:26px;height:26px;margin:-13px;opacity:0;color:var(--hot);font-size:26px;text-align:center;line-height:26px}
+#hp,#ammo,#score{position:absolute;bottom:22px;font-size:34px;font-weight:700;text-shadow:0 0 12px #000}
+#hp{left:28px;color:var(--neon)}#ammo{right:28px}#score{top:18px;bottom:auto;left:50%;transform:translateX(-50%);font-size:20px}
+#dmg{position:absolute;inset:0;box-shadow:inset 0 0 120px #ff0033;opacity:0;transition:opacity .4s}
+#kc{position:absolute;top:60px;width:100%;text-align:center;color:var(--hot);font-size:28px;display:none}
+#msg{position:absolute;top:30%;width:100%;text-align:center;font-size:42px;color:var(--neon)}
+</style></head><body>
+<div id="hud"><div id="cross"></div><div id="hit">✕</div><div id="dmg"></div><div id="score"></div><div id="hp">100</div><div id="ammo"></div><div id="kc">ПОВТОР УБИЙСТВА</div><div id="msg"></div></div>
+
+<div id="menu" class="screen on"><h1>NEON STRIKE</h1>
+<button id="bPlay">В бой</button><button id="bInv">Инвентарь / Скины</button><button id="bProf">Профиль</button><button id="bMap">Кастомная карта</button></div>
+
+<div id="inv" class="screen"><div class="card"><h2>Инвентарь</h2>
+<select id="wSel"><option value="ak47">AK-47</option><option value="m4a1">M4A1</option><option value="knife">Нож</option></select>
+<div class="row" id="skins"></div>
+<label class="btn" style="display:inline-block;min-width:0">Загрузить свой скин<input id="skinFile" type="file" accept="image/*" hidden></label>
+<p><button class="back">Назад</button></p></div></div>
+
+<div id="prof" class="screen"><div class="card"><h2>Профиль</h2>
+<div class="row"><div id="ava" style="width:72px;height:72px;font-size:38px;display:flex;align-items:center;justify-content:center;border:2px solid var(--neon)"></div>
+<div style="flex:1"><input id="nick" maxlength="16"><div class="row"><select id="avaSel"></select></div></div></div>
+<div id="stats"></div><p><button class="back">Назад</button></p></div></div>
+
+<div id="mapScr" class="screen"><div class="card" style="min-width:520px"><h2>Кастомная карта</h2>
+<p>JSON: blocks[{p,s,c}], spawns[[x,z]], waypoints[[x,z]]</p>
+<textarea id="mapJson" rows="10"></textarea>
+<div class="row"><button id="mapGo" class="hot">Играть на карте</button><button class="back">Назад</button></div></div></div>
+
+<script type="module" src="main.js"></script></body></html>
